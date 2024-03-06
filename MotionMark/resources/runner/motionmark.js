@@ -751,5 +751,6 @@ window.benchmarkController = {
     }
 };
 
-window.addEventListener("load", function() { benchmarkController.initialize(); });
-
+if (!window.location.search.includes("dontrun=1")) {
+    window.addEventListener("load", function() { benchmarkController.initialize(); });
+}
