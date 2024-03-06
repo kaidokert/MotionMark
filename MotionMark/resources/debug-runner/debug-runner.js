@@ -530,19 +530,32 @@ window.suitesManager = {
 Utilities.extendObject(window.benchmarkController, {
     initialize: async function()
     {
+        console.log("window.benchmarkController init...");
         document.title = Strings.text.title.replace("%s", Strings.version);
+        console.log("window.benchmarkController init... 2");
         document.querySelectorAll(".version").forEach(function(e) {
             e.textContent = Strings.version;
         });
 
+        console.log("window.benchmarkController init... 3");
         document.forms["benchmark-options"].addEventListener("change", benchmarkController.onBenchmarkOptionsChanged, true);
+        console.log("window.benchmarkController init... 4");
         document.forms["graph-type"].addEventListener("change", benchmarkController.onGraphTypeChanged, true);
+        console.log("window.benchmarkController init... 5");
         document.forms["time-graph-options"].addEventListener("change", benchmarkController.onTimeGraphOptionsChanged, true);
         document.forms["complexity-graph-options"].addEventListener("change", benchmarkController.onComplexityGraphOptionsChanged, true);
+        console.log("window.benchmarkController init... 6");
         optionsManager.updateUIFromLocalStorage();
+        console.log("window.benchmarkController init... 7");
+        try {
         optionsManager.updateDisplay();
+        } catch(e) {}
+        console.log("window.benchmarkController init... 8");
+        try {
         optionsManager.updateTiles();
+        } catch(e) {}
 
+        console.log("window.benchmarkController init... 9");
         if (benchmarkController.startBenchmarkImmediatelyIfEncoded())
             return;
 
@@ -679,6 +692,7 @@ Utilities.extendObject(window.benchmarkController, {
 
     startBenchmarkImmediatelyIfEncoded: function()
     {
+        console.log("----> startBenchmarkImmediatelyIfEncoded...");
         benchmarkController.options = Utilities.convertQueryStringToObject(location.search);
         if (!benchmarkController.options)
             return false;
@@ -688,6 +702,7 @@ Utilities.extendObject(window.benchmarkController, {
             return false;
 
         setTimeout(function() {
+            console.log("----> startBenchmarkImmediatelyIfEncoded launching");
             this._startBenchmark(benchmarkController.suites, benchmarkController.options, "running-test");
         }.bind(this), 0);
         return true;
